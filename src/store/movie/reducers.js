@@ -1,18 +1,26 @@
 import { handleActions } from 'redux-actions';
+import movieActions from './actions';
 
 export const movieReducer = handleActions(
   new Map([
-    // [
-    //   venueActions.setLoading,
-    //   (state, action) => ({
-    //     ...state,
-    //     loading: action.payload,
-    //     error: null,
-    //   }),
-    // ],
+    [
+      movieActions.setLoading,
+      (state, action) => ({
+        ...state,
+        loading: action.payload,
+      }),
+    ],
+    [
+      movieActions.setMovie,
+      (state, action) => ({
+        ...state,
+        movie: action.payload,
+      }),
+    ],
   ]),
   {
-    moviesLoading: false,
+    loading: false,
+    movie: null,
   },
 );
 
