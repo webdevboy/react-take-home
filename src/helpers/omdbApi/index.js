@@ -1,5 +1,3 @@
 import { get } from './api-helper';
 
-export const getMovies = (search) => get({
-  s: search,
-});
+export const getMovies = (params) => get(params);

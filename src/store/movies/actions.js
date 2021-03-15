@@ -1,5 +1,5 @@
 import { createActions } from 'redux-actions';
-import * as API from 'helpers/omdbApi';
+import * as API from 'src/helpers/omdbApi';
 
 const options = {
   prefix: 'MOVIES',
@@ -8,17 +8,18 @@ const options = {
 const moviesActions = createActions(
   {
     SET_LOADING: undefined,
+    SET_MOVIES: undefined,
   },
   options,
 );
 
-const getMovies = (payload) => async (dispatch) => {
+const getMovies = (params) => async (dispatch) => {
   try {
-    console.log(payload);
-    // dispatch(moviesActions.setLoading(true));
-    // const data = await API.getMovies();
-    // console.log(data);
-    // dispatch(moviesActions.setLoading(false));
+    console.log(params);
+    dispatch(moviesActions.setLoading(true));
+    const data = await API.getMovies(params);
+    dispatch(moviesActions.setMovies(data));
+    dispatch(moviesActions.setLoading(false));
   } catch (error) {
     console.log(error);
   }
