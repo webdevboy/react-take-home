@@ -1,0 +1,23 @@
+.app-movies {
+  .app-movies__search-group {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    .app-movies__search-group__inputs {
+      display: flex;
+      justify-content: flex-start;
+      .app-movies__search-group__inputs__title, .app-movies__search-group__inputs__year {
+        margin-right: 20px;
+      }
+    }
+    .app-movies__search-group__submit {
+      width: 95px;
+      height: 45px;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+    }
+  }
+}

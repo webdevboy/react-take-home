@@ -9,7 +9,7 @@ function App() {
     <div className="app">
       <Switch>
         <Route path="/movies" component={MoviesPage} />
-        <Route path="/movie" component={MoviePage} />
+        <Route path="/movie/:id" component={MoviePage} />
         <Redirect to="/movies" />
       </Switch>
     </div>

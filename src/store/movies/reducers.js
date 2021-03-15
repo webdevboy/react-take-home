@@ -17,13 +17,23 @@ export const moviesReducer = handleActions(
         movies: action.payload.Search,
         moviesTotal: +action.payload.totalResults,
       })
-    ]
+    ],
+    [
+      moviesActions.setField,
+      (state, action) => ({
+        ...state,
+        [action.payload.name]: action.payload.value,
+      }),
+    ],
   ]),
   {
+    value: '',
+    year: '',
+    type: '',
     page: 1,
     movies: [],
     moviesTotal: 0,
-    moviesLoading: false,
+    loading: false,
   },
 );
 
