@@ -33,7 +33,7 @@ function MoviePage() {
         </IconButton>
         {loading && (
           <div className="app-movie__loading">
-            <CircularProgress size="300" />
+            <CircularProgress size={50} color="primary" />
           </div>
         )}
         {movie && !loading && (
