@@ -1,12 +1,20 @@
 .app-movie {
   padding: 50px 0;
+  .app-movie__movie__poster__empty {
+    min-width: 400px;
+    height: 600px;
+    background-color: #cdcdcd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   .app-movie__movie {
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
     margin-top: 20px;
     .app-movie__movie__poster {
-      min-width: 600px;
+      min-width: 500px;
     }
     .app-movie__movie__info {
       margin-left: 20px;

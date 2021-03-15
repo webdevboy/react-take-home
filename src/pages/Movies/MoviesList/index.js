@@ -7,7 +7,7 @@ import './MoviesList.scss';
 function MoviesList({ movies, total, page, paginationChange }) {
   return (
     <div className="app-movie-list">
-      {movies?.length === 0 && <div className="app-movie-list__empty">No Movies</div>}
+      {(!movies || movies.length === 0) && <div className="app-movie-list__empty">No Movies</div>}
       {movies?.length > 0 && movies.map(movie => (
         <Link to={`/movie/${movie.imdbID}`} key={movie.imdbID} className="app-movie-list__movie">
           <div className="app-movie-list__movie__poster">

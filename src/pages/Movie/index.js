@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { IconButton, Container } from '@material-ui/core';
+import { IconButton, Container, CircularProgress } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -31,9 +31,15 @@ function MoviePage() {
         <IconButton onClick={history.goBack}>
           <ArrowBackIcon fontSize="inherit" />
         </IconButton>
+        {loading && (
+          <div className="app-movie__loading">
+            <CircularProgress size="300" />
+          </div>
+        )}
         {movie && !loading && (
           <div className="app-movie__movie">
-            <img className="app-movie__movie__poster" src={movie.Poster} alt="Poster" />
+            {movie.Poster === 'N/A' && <div className="app-movie__movie__poster__empty">No Poster</div>}
+            {movie.Poster !== 'N/A' && <img className="app-movie__movie__poster" src={movie.Poster} alt="Poster" />}
             <div className="app-movie__movie__info">
               <div className="app-movie__movie__info__title">
                 {movie.Title}

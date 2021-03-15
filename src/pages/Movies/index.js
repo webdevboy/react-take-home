@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Container, TextField, Select, MenuItem, Button, CircularProgress } from '@material-ui/core';
 import Actions from 'src/store/movies/actions';
@@ -13,6 +13,7 @@ const {
 } = Actions;
 
 function MoviesPage() {
+  const [valueError, setValueError] = useState('');
   const page = useSelector(Selectors.selectPage);
   const movies = useSelector(Selectors.selectMovies);
   const moviesTotal = useSelector(Selectors.selectMoviesTotal);
@@ -20,10 +21,28 @@ function MoviesPage() {
   const year = useSelector(Selectors.selectYear);
   const type = useSelector(Selectors.selectType);
   const loading = useSelector(Selectors.selectLoading);
-  console.log(page);
   const dispatch = useDispatch();
 
+  const validateTitle = (valueToValidate) => {
+    let isValid = true;
+    
+    if(valueToValidate === '') {
+      isValid = false;
+      setValueError('Title is required');
+    }
+    else if(valueToValidate.length < 4) {
+      isValid = false;
+      setValueError('Title length must be greater than 4');
+    }
+
+    if(isValid) {
+      setValueError('');
+    }
+    return isValid;
+  }
+
   const handleGetMovies = (resetPage = true) => {
+    if(!validateTitle(value)) return;
     const params = {
       s: value,
       y: year,
@@ -37,10 +56,13 @@ function MoviesPage() {
   }
 
   const changeField = (name, value) => {
+    
+    validateTitle(value);
     dispatch(setField({
       name,
       value,
     }));
+    
   };
 
   const changePagination = (event, value) => {
@@ -51,21 +73,20 @@ function MoviesPage() {
   }
 
   useEffect(() => {
-    if(page) {
+    if(page && page !== 1) {
       handleGetMovies(false);
     }
   }, [page]);
-
   return (
     <div className="app-movies">
       <Container>
         <div className="app-movies__search-group">
           <div className="app-movies__search-group__inputs">
             <div className="app-movies__search-group__inputs__title">
-              <TextField label="Movie title" value={value} onChange={e => changeField('value', e.target.value)} />  
+              <TextField error={!!valueError && valueError !== ''} label="Movie title" value={value} onChange={e => changeField('value', e.target.value)} />  
             </div>
             <div className="app-movies__search-group__inputs__year">
-              <TextField label="Year" value={year} onChange={e => changeField('year', e.target.value)} />
+              <TextField type="number" label="Year" value={year} onChange={e => changeField('year', e.target.value)} />
             </div>
             <Select
               value={type}
@@ -85,6 +106,7 @@ function MoviesPage() {
             {loading && <CircularProgress color="inherit" size={25} />}
           </Button>
         </div>
+        {valueError && <div className="error">{valueError}</div>}
         <div>
           <MoviesList {...{
             movies,
